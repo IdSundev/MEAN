@@ -4,7 +4,12 @@ var router = express.Router();
 const ctrlLocations = require('../controllers/locations');
 const ctrlOthers = require('../controllers/others');
 
-/* GET home page. */
-router.get('/', ctrlMain.index);
+/* Locations page. */
+router.get('/', ctrlLocations.homelist);
+router.get('/location', ctrlLocations.locationInfo);
+router.get('/location/review/view', ctrlLocations.addReview);
+
+/* Other page */
+router.get('/about', ctrlOther.about);
 
 module.exports = router;
