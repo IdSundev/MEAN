@@ -1,6 +1,6 @@
 /* GET 'about' page */
 const about = (req, res) => {
-  res.render('index', { title: 'About' });
+  res.render('generic-text', { title: 'About' });
 }
 
 // Export the index function as a method 
