@@ -10,6 +10,6 @@ router.get('/location', ctrlLocations.locationInfo);
 router.get('/location/review/view', ctrlLocations.addReview);
 
 /* Other page */
-router.get('/about', ctrlOther.about);
+router.get('/about', ctrlOthers.about);
 
 module.exports = router;
