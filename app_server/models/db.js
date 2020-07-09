@@ -1,6 +1,15 @@
 const mongoose = require('mongoose');
 
-const dbURI = 'mongodb://localhost/Loc8r';
+let dbURI = 'mongodb://localhost/Loc8r';
+
+if(process.env.NODE_ENV === 'production'){
+  dbURI = 'mongodb+srv://cef_syarif:Kampungan_123@loc8r.swe2p.mongodb.net/Loc8r?retryWrites=true&w=majority';
+
+  // code dibawah ini untuk melindungi password account mongodb atlas kita jika kita menyimpan code di public rpository dan cara runningnya sbb: 
+  // NODE_ENV=production MONGODB_URI=mongodb+srv://cef_syarif:Kampungan_123@loc8r.swe2p.mongodb.net/Loc8r?retryWrites=true&w=majority
+  // dbURI = process.env.MONGODB_URI;
+}
+
 mongoose.connect(dbURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
