@@ -4,6 +4,7 @@ const dbURI = 'mongodb://localhost/Loc8r';
 mongoose.connect(dbURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useCreateIndex: true,
 });
 
 mongoose.connection.on('connected', () => {
