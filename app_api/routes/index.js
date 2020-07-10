@@ -12,8 +12,8 @@ router
 router
   .route('/locations/:locationid')
   .get(ctrlLocations.locationsReadOne)
-  .put(ctrlLocations.locationUpdateOne)
-  .delete(ctrlLocations.locationDeleteOne);
+  .put(ctrlLocations.locationsUpdateOne)
+  .delete(ctrlLocations.locationsDeleteOne);
 
 // reviews 
 router
@@ -22,8 +22,8 @@ router
 
 router
   .route('/locations/:locationid/reviews/:reviewid')
-  .get(ctrlReviews.reviewReadOne)
-  .put(ctrlReviews.reviewUpdateOne)
-  .delete(ctrlLocations.reviewsDeleteOne);
+  .get(ctrlReviews.reviewsReadOne)
+  .put(ctrlReviews.reviewsUpdateOne)
+  .delete(ctrlReviews.reviewsDeleteOne);
 
   module.exports = router;
