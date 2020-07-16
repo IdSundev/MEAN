@@ -1,4 +1,10 @@
 const request = require('request');
+const apiOptions = {
+  server: 'http://localhost:3000'
+};
+if(process.env.NODE_ENV === 'production'){
+  apiOptions.server = 'https://gentle-sands-05050.herokuapp.com/';
+}
 
 // GET 'home' page 
 const homelist = (req, res) => {
