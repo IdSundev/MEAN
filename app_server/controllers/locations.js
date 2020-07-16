@@ -1,3 +1,5 @@
+const request = require('request');
+
 // GET 'home' page 
 const homelist = (req, res) => {
   res.render('locations-list', { 
