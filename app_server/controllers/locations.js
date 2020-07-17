@@ -6,8 +6,7 @@ if(process.env.NODE_ENV === 'production'){
   apiOptions.server = 'https://gentle-sands-05050.herokuapp.com/';
 }
 
-// GET 'home' page 
-const homelist = (req, res) => {
+const renderHomepage = (req, res) => {
   res.render('locations-list', { 
     title: 'Loc8r - find a place to work with wifi',
     pageHeader: {
@@ -35,6 +34,11 @@ const homelist = (req, res) => {
       distance: '250m'
     }]
   });
+}
+
+// GET 'home' page 
+const homelist = (req, res) => {
+  renderHomepage(req, res);
 };
 
 // GET 'Location info' page 
