@@ -3,7 +3,7 @@ const apiOptions = {
   server: 'http://localhost:3000'
 };
 if(process.env.NODE_ENV === 'production'){
-  apiOptions.server = 'https://gentle-sands-05050.herokuapp.com/';
+  apiOptions.server = 'https://gentle-sands-05050.herokuapp.com';
 }
 
 const formatDistance = (distance) => {
@@ -50,7 +50,7 @@ const homelist = (req, res) => {
     qs: {
       lng: 107.646746,
       lat: -6.988140,
-      maxDistance: 20
+      maxDistance: 20000
     }
   };
   request(requestOptions, (err, {statusCode}, body) => {
