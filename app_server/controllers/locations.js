@@ -79,37 +79,101 @@ const renderDetailPage = (req, res, location) => {
   });
 }
 
-// GET 'Location info' page 
-const locationInfo = (req, res, location) => {
+const showError = (req, res, status) => {
+  let title = '';
+  let content = '';
+  if(status === 404){
+    title = '404, page not found';
+    content = 'Oh dear. Looks like you can\'t find this page. Sorry.';
+  }else{
+    title = `${status}, something's gone wrong`;
+    content = 'Something, somewhere, has gone just a little bit wrong.';
+  }
+  res.status(status);
+  res.render('generic-text', {
+    title, content
+  });
+}
+
+const getLocationInfo = (req, res, callback) => {
   const path = `/api/locations/${req.params.locationid}`;
   const requestOptions = {
     url: `${apiOptions.server}${path}`,
     merhod: 'GET',
     json: {}
   };
-  request( requestOptions, (err, response, body) => {
-      const data = body;
-      data.coords = {
-        lng: body.coords[0],
-        lat: body.coords[1],
-      };
-      renderDetailPage(req, res, data);
+  request( requestOptions, (err, {statusCode}, body) => {
+      let data = body;
+      if(statusCode === 200){
+        data.coords = {
+          lng: body.coords[0],
+          lat: body.coords[1],
+        };
+        callback(req, res, data);
+      } else {
+        showError(req, res, statusCode);
+      }
     }
+  );
+}
+
+// GET 'Location info' page 
+const locationInfo = (req, res) => {
+  getLocationInfo(req, res, 
+    (req, res, responseData) => renderDetailPage(req, res, responseData)
   );
 };
 
+const renderReviewForm = (req, res, {name}) => {
+  res.render('location-review-form', {
+    title: `Review ${name} on Loc8r`,
+    pageHeader: { title: `Review ${name}` },
+    error: req.query.err
+  });
+}
+
 // GET 'Add review' page 
 const addReview = (req, res) => {
-  res.render('location-review-form', { 
-    title: 'Review Starcup on Loc8r',
-    pageHeader: {
-      title: 'Review Starcups'
-    } 
-  });
+  getLocationInfo(req, res,
+    (req, res, responseData) => renderReviewForm(req, res, responseData)
+  );
+};
+
+const doAddReview = (req, res) => {
+  const locationid = req.params.locationid;
+  const path = `/api/locations/${locationid}/reviews`;
+  const postdata = {
+    author: req.body.name,
+    rating: req.body.rating,
+    reviewText: req.body.review
+  };
+  const requestOptions = {
+    url: `${apiOptions.server}${path}`,
+    method: 'POST',
+    json: postdata
+  };
+  if(!postdata.author || !postdata.rating || postdata.reviewText){
+    res.redirect(`/location/${locationid}/review/new?err=val`);
+  }else{
+    request(
+      requestOptions,
+      (err, {statusCode}, body) => {
+        if(statusCode === 201){
+          res.redirect(`/location/${locationid}`);
+        }else if (statusCode === 400){
+          res.redirect(`/location/${locationid}/review/new?err=val`)
+        }else{
+          console.log(body);
+          showError(req, res, statusCode);
+        }
+      }
+    );
+  }
 };
 
 module.exports = {
   homelist,
   locationInfo,
   addReview,
+  doAddReview,
 }
