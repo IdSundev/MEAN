@@ -144,7 +144,7 @@ const doAddReview = (req, res) => {
   const path = `/api/locations/${locationid}/reviews`;
   const postdata = {
     author: req.body.name,
-    rating: req.body.rating,
+    rating: parseInt(req.body.rating, 10),
     reviewText: req.body.review
   };
   const requestOptions = {
@@ -152,8 +152,8 @@ const doAddReview = (req, res) => {
     method: 'POST',
     json: postdata
   };
-  if(!postdata.author || !postdata.rating || postdata.reviewText){
-    res.redirect(`/location/${locationid}/review/new?err=val`);
+  if(!postdata.author || !postdata.rating || !postdata.reviewText){
+    res.redirect(`/location/${locationid}/review/new?err=val1`);
   }else{
     request(
       requestOptions,
@@ -161,7 +161,7 @@ const doAddReview = (req, res) => {
         if(statusCode === 201){
           res.redirect(`/location/${locationid}`);
         }else if (statusCode === 400){
-          res.redirect(`/location/${locationid}/review/new?err=val`)
+          res.redirect(`/location/${locationid}/review/new?err=val2`)
         }else{
           console.log(body);
           showError(req, res, statusCode);
