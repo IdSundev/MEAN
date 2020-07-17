@@ -30,7 +30,7 @@ const locationsListByDistance = async (req, res) => {
           ...geoOptions
         }
       },
-      { $limit: 15 }
+      { $limit: 5 }
     ]);
     const locations = results.map(result => {
       return{
@@ -39,7 +39,7 @@ const locationsListByDistance = async (req, res) => {
         address: result.address,
         rating: result.rating,
         facilities: result.facilities,
-        distance: `${result.distance.calculated.toFixed()}m`
+        distance: `${result.distance.calculated.toFixed()}`
       }
     });
     res
