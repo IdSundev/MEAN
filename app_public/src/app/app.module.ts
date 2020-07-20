@@ -6,12 +6,14 @@ import { DistancePipe } from './distance.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { FrameworkComponent } from './framework/framework.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
     HomeListComponent,
     DistancePipe,
-    FrameworkComponent
+    FrameworkComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
@@ -20,6 +22,10 @@ import { FrameworkComponent } from './framework/framework.component';
       {
         path:'',
         component: HomeListComponent
+      },
+      {
+        path: 'about',
+        component: AboutComponent
       }
     ])
   ],
