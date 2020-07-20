@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Loc8rDataService } from '../loc8r-data.service';
+import { GeolocationService } from '../geolocation.service';
 
 export class Location{
   _id: string;
@@ -17,7 +18,10 @@ export class Location{
 })
 export class HomeListComponent implements OnInit {
 
-  constructor(private loc8rDataService: Loc8rDataService) { }
+  constructor(
+    private loc8rDataService: Loc8rDataService,
+    private geolocationService: GeolocationService
+    ) { }
 
   locations: Location[];
 
