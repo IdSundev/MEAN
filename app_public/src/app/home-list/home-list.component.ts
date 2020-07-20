@@ -21,7 +21,7 @@ export class HomeListComponent implements OnInit {
   location: Location = {
     _id: '5f10f74a0bc9ff1f95a55654',
     name: 'Costy',
-    distance: 14.0,
+    distance: 14000.1234,
     address: 'High Street, Reading',
     rating: 3,
     facilities: ['hot drinks','food','power']
