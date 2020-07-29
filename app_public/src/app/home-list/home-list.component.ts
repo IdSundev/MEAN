@@ -23,16 +23,39 @@ export class HomeListComponent implements OnInit {
     private geolocationService: GeolocationService
     ) { }
 
-  locations: Location[];
+  public locations: Location[];
+  public message: string;
 
-  private getLocations(): void{
+  private getLocations(position: any): void{
+    this.message = 'Searching for nearby places';
+    const lat: number = position.coords.latitude;
+    const lng: number = position.coords.longitude;
     this.loc8rDataService
-      .getLocations()
-      .then(foundLocations => this.locations = foundLocations);
+      .getLocations(lat, lng)
+      .then(foundLocations => {
+        this.message = foundLocations.length > 0 ? '' : 'No location found';
+        this.locations = foundLocations;
+      });
+  }
+
+  private showError(error: any): void{
+    this.message = error.message;
+  }
+
+  private noGeo(): void{
+    this.message = 'Geolocation not supported by this browser.';
+  }
+
+  private getPosition(): void{
+    this.message = 'Getting your location....';
+    this.geolocationService.getPosition(
+      this.getLocations.bind(this),
+      this.showError.bind(this),
+      this.noGeo.bind(this));
   }
 
   ngOnInit(): void {
-    this.getLocations();
+    this.getPosition();
   }
 
 }
