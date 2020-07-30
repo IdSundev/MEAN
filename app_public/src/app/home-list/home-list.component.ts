@@ -9,6 +9,9 @@ export class Location{
   address: string;
   rating: number;
   facilities: string[];
+  coords: any;
+  reviews: any[];
+  openingTimes: string[];
 }
 
 @Component({
