@@ -4,8 +4,11 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-// const favicon = require('serve_favicon');
+// const favicon = require('serve-favicon');
+const bodyParser = require('body-parser');
+const passport = require('passport');
 require('./app_api/models/db');
+require('./app_api/config/passport');
 
 
 // const indexRouter = require('./app_server/routes/index');
@@ -23,17 +26,28 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'app_public', 'build')));
+app.unsubscribe(passport.initialize());
 
 // Allowing CORS request in Express 
 app.use('/api', (req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept, Authorization');
   next();
 });
 // app.use('/', indexRouter);
 app.use('/api', apiRouter);
 app.get(/(\/about)|(\/location\/[a-z0-9]{24})/, function(req, res, next){
   res.sendFile(path.join(__dirname, 'app_public','build','index.html'));
+});
+
+// error handlers 
+// Catch unauthorised errors 
+app.use((err, req, res, netx) => {
+  if(err.name === 'UnauthorizedError'){
+    res
+      .status(401)
+      .json({"message": err.name + ": " + err.message});
+  }
 });
 
 // catch 404 and forward to error handler
