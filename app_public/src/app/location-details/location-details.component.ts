@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Renderer2, Inject } from '@angular/core';
 import { Location, Review } from '../location';
 import { DOCUMENT } from '@angular/common';
 import { Loc8rDataService } from '../loc8r-data.service';
+import { AuthenticationService } from '../authentication.service';
 
 @Component({
   selector: 'app-location-details',
@@ -12,14 +13,6 @@ export class LocationDetailsComponent implements OnInit {
 
   @Input() location: Location;
 
-  // newLocation: Location;
-
-  constructor(
-    private _renderer2: Renderer2,
-    @Inject(DOCUMENT) private _document: Document,
-    private loc8rDataService: Loc8rDataService
-  ) {}
-
   public newReview: Review = {
     author: '',
     rating: 5,
@@ -27,8 +20,16 @@ export class LocationDetailsComponent implements OnInit {
   }
 
   public formError:string;
-
   public formVisible: boolean = false;
+
+  // newLocation: Location;
+
+  constructor(
+    private _renderer2: Renderer2,
+    @Inject(DOCUMENT) private _document: Document,
+    private loc8rDataService: Loc8rDataService,
+    private authenticationService: AuthenticationService
+  ) {}
 
   private formIsValid(): boolean{
     if(this.newReview.author && this.newReview.rating && this.newReview.reviewText){
@@ -47,6 +48,7 @@ export class LocationDetailsComponent implements OnInit {
 
   public onReviewSubmit(): void{
     this.formError = '';
+    this.newReview.author = this.getUsername();
     if(this.formIsValid()){
       console.log(this.newReview);
       this.loc8rDataService.addReviewByLocationId(this.location._id, this.newReview)
@@ -79,6 +81,15 @@ export class LocationDetailsComponent implements OnInit {
       `;
     // script.setAttribute({{'*ngIf = newLocation'}});
     this._renderer2.appendChild(this._document.body, script);
+  }
+
+  public isLoggedIn(): boolean {
+    return this.authenticationService.isLoggedIn();
+  }
+
+  public getUsername(): string {
+    const { name } = this.authenticationService.getCurrentUser();
+    return name ? name : 'Guest';
   }
 
 }

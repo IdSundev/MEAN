@@ -7,6 +7,7 @@ import { Loc8rDataService } from './loc8r-data.service';
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthenticationService {
 
   constructor(
@@ -14,7 +15,7 @@ export class AuthenticationService {
     private loc8rDataService: Loc8rDataService  
   ) { }
 
-  public getToken(): String {
+  public getToken(): string {
     return this.storage.getItem('loc8r-token');
   }
 
@@ -37,7 +38,7 @@ export class AuthenticationService {
   }
 
   public isLoggedIn(): boolean {
-    const token: String = this.getToken();
+    const token: string = this.getToken();
     if(token){
       const payload = JSON.parse(atob(token.split('.')[1]));
       return payload.exp > (Date.now() / 1000);
@@ -48,7 +49,7 @@ export class AuthenticationService {
 
   public getCurrentUser(): User {
     if(this.isLoggedIn()){
-      const token: String = this.getToken();
+      const token: string = this.getToken();
       const { email, name } = JSON.parse(atob(token.split('.')[1]));
       return { email, name } as User;
     }

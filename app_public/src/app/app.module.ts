@@ -15,6 +15,8 @@ import { HtmlLineBreaksPipe } from './html-line-breaks.pipe';
 import { LocationDetailsComponent } from './location-details/location-details.component';
 import { DetailsPageComponent } from './details-page/details-page.component';
 import { MostRecentFirstPipe } from './most-recent-first.pipe';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { MostRecentFirstPipe } from './most-recent-first.pipe';
     HtmlLineBreaksPipe,
     LocationDetailsComponent,
     DetailsPageComponent,
-    MostRecentFirstPipe
+    MostRecentFirstPipe,
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

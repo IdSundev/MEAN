@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const ctrlLocations = require('../controllers/locations');
-const ctrlReviews = require('../controllers/reviews');
-const ctrlAuth = require('../controllers/authentication');
 const jwt = require('express-jwt');
 const auth = jwt({
   secret: process.env.JWT_SECRET,
   userProperty: 'payload',
-  algorithms: ['RS256']
+  algorithms: ['HS256']
 });
+const ctrlLocations = require('../controllers/locations');
+const ctrlReviews = require('../controllers/reviews');
+const ctrlAuth = require('../controllers/authentication');
 
 // locations 
 router

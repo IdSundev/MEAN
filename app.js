@@ -5,11 +5,10 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 // const favicon = require('serve-favicon');
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const passport = require('passport');
 require('./app_api/models/db');
 require('./app_api/config/passport');
-
 
 // const indexRouter = require('./app_server/routes/index');
 const apiRouter = require('./app_api/routes/index');
@@ -26,7 +25,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'app_public', 'build')));
-app.unsubscribe(passport.initialize());
+app.use(passport.initialize());
 
 // Allowing CORS request in Express 
 app.use('/api', (req, res, next) => {
@@ -42,7 +41,7 @@ app.get(/(\/about)|(\/location\/[a-z0-9]{24})/, function(req, res, next){
 
 // error handlers 
 // Catch unauthorised errors 
-app.use((err, req, res, netx) => {
+app.use((err, req, res, next) => {
   if(err.name === 'UnauthorizedError'){
     res
       .status(401)
