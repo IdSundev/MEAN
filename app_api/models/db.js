@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 let dbURI = 'mongodb://localhost/Loc8r';
 
 if(process.env.NODE_ENV === 'production'){
-  dbURI = 'mongodb+srv://cef_syarif:Kampungan_123@loc8r.swe2p.mongodb.net/Loc8r?retryWrites=true&w=majority';
+  dbURI = process.env.DBURI;
 
   // code dibawah ini untuk melindungi password account mongodb atlas kita jika kita menyimpan code di public rpository dan cara runningnya sbb: 
   // NODE_ENV=production MONGODB_URI=mongodb+srv://cef_syarif:Kampungan_123@loc8r.swe2p.mongodb.net/Loc8r?retryWrites=true&w=majority
@@ -17,7 +17,7 @@ mongoose.connect(dbURI, {
 });
 
 mongoose.connection.on('connected', () => {
-  console.log(`Mongoose connected to ${dbURI}`);
+  console.log(`Mongoose connected to Mongo Atlas`);
 });
 
 mongoose.connection.on('error', err => {
@@ -57,3 +57,4 @@ process.on('SIGTERM', () => {
 });
 
 require('./locations');
+require('./users');
