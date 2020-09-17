@@ -7,9 +7,9 @@ https://www.amazon.com/Getting-MEAN-Mongo-Express-Angular/dp/1617294756
 Ada beberapa source code yang berbeda dengan source code yang ada di buku, karena ada beberapa library berbeda yang digunakan baik versi maupun keseluruhan. Misalnya di source code ini saya tidak menggunakan Google Maps API tetapi menggunakan leaflet.js.
 
 ## PATH
-API: ./app_api
-SPA (MEAN): ./app_public/
-Integrated Application (Node.js & MongoDB): ./app_server
+API: ./app_api <br>
+SPA (MEAN): ./app_public/ <br>
+Integrated Application (Node.js & MongoDB): ./app_server <br>
 API Testing: ./app_api/Getting MEAN Stack.postman_collection.json
 
 ## Library/ Dependencies
