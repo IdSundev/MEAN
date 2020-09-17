@@ -6,6 +6,12 @@ https://www.amazon.com/Getting-MEAN-Mongo-Express-Angular/dp/1617294756
 ## Notes
 Ada beberapa source code yang berbeda dengan source code yang ada di buku, karena ada beberapa library berbeda yang digunakan baik versi maupun keseluruhan. Misalnya di source code ini saya tidak menggunakan Google Maps API tetapi menggunakan leaflet.js.
 
+## PATH
+API: ./app_api
+SPA (MEAN): ./app_public/
+Integrated Application (Node.js & MongoDB): ./app_server
+API Testing: ./app_api/Getting MEAN Stack.postman_collection.json
+
 ## Library/ Dependencies
 ```javascript
 "cookie-parser": "~1.4.4",
@@ -25,29 +31,21 @@ Ada beberapa source code yang berbeda dengan source code yang ada di buku, karen
 
 ## Basic Command:
 
-**Running Anaconda**
-```python
-source ~<computer-name>/anaconda3/bin/activate
+**Running Local Environtment Connect to Mongodb local**
+```bash
+# location: ./
+nodemon
 ```
-**Open Anaconda**
-```python
-anaconda-navigator
+**Running Local Environtment Connect to Mongodb Atlas**
+```bash
+# location: ./
+NODE_ENV=production nodemon
 ```
-**Deactivate Anaconda**
-```python
-conda deactivate
-```
-**Create Virtual Environtment**
-```python
-virtualenv <nama_folder>
-```
-**Running Virtual Environtment**
-```python
-source <nama_folder>/bin/activate
-```
-**Deactivate Virtual Environtment**
-```python
-deactivate
+
+**Running MEAN (Angular)**
+```bash
+# location: ./app_public
+ng serve
 ```
 
 ## Contact
