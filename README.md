@@ -10,7 +10,7 @@ Ada beberapa source code yang berbeda dengan source code yang ada di buku, karen
 API: ./app_api <br>
 SPA (MEAN): ./app_public/ <br>
 Integrated Application (Node.js & MongoDB): ./app_server <br>
-API Testing: ./app_api/Getting MEAN Stack.postman_collection.json
+API Testing: ./Getting MEAN Stack.postman_collection.json
 
 ## Library/ Dependencies
 ```javascript
